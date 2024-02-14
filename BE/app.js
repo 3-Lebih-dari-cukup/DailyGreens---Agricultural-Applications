@@ -207,6 +207,9 @@ app.put('/fruits/:id', (req, res) => {
     fruit.name = name
     fruit.description = description
     fruit.price = price
+    fruit.stock = stock
+    fruit.address = address
+    fruit.seller = seller
   
     const image = req.files.image
     // const filename = `${name}.jpg`
@@ -363,6 +366,9 @@ app.put('/vegetables/:id', (req, res) => {
   vegetable.name = name
   vegetable.description = description
   vegetable.price = price
+  vegetable.stock = stock
+  vegetable.address = address
+  vegetable.seller = seller
 
   const image = req.files.image
   // const filename = `${name}.jpg`
