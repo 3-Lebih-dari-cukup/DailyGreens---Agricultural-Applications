@@ -53,5 +53,77 @@
             <button type="submit" class="focus:outline-none text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-200">Save Changes</button>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mendapatkan URL saat ini
+            const urlParams = new URLSearchParams(window.location.search);
+    
+            // Mengambil nilai dari query parameter 'id'
+            const id = urlParams.get('id');
+            console.log(id);
+    
+    
+    
+        // Jika ID ditemukan dalam URL, lakukan fetch data dari server
+        if (id) {
+            fetch(`https://1e44-180-244-132-9.ngrok-free.app/fruits/${id}`, {
+                method: 'GET',
+                headers: {
+                    "ngrok-skip-browser-warning": "true",
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                if (response && response.data) {
+                    const { id, name, description, price, stock, address, seller, image } = response.data;
+                    document.getElementById('name').value = name;
+                    document.getElementById('address').value = address;
+                    document.getElementById('price').value = price;
+                    document.getElementById('seller').value = seller;
+                    document.getElementById('stock').value = stock;
+                    document.getElementById('description').value = description;
+                    document.getElementById('imageInput').setAttribute("src", `https://1e44-180-244-132-9.ngrok-free.app${image}`);
+                    document.getElementById('image').value = "tomato.jpg";
+                    console.log(image);
+                    
+                } else {
+                    console.error('Invalid response format');
+                }
+            });
+        }
+        // Fungsi untuk mengirim data update ke API
+        document.getElementById('AddForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            console.log(formData);
+            if (id) {
+                fetch(`https://1e44-180-244-132-9.ngrok-free.app/fruits/${id}`, { // Perbaikan di sini
+                    method: 'PUT',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data successfully sent:', data);
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                });
+            }
+        });
+    
+    
+        // Back Button
+        document.getElementById("backButton").addEventListener("click", function() {
+            window.location.href = "VeggiesList.html";
+        });
+    
+    });
+    </script>
 </body>
 </html>

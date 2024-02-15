@@ -7,17 +7,6 @@
     <link rel="stylesheet" href="src/output.css">
 </head>
 <body class="bg-green-800">
-    <script>
-        const form = document.querySelector('#form');
-
-        form.addEventListener('submit',event =>{
-            event.preventDefault();
-
-            const payload = new FormData(form)
-
-            console.log([...payload])
-        })
-    </script>
     <div class="justify-center m-36 ">
         <!-- Formulir -->
         <form id="form" class="max-w p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-green-950 dark:border-gray-700">
@@ -35,7 +24,7 @@
             <!-- Deskripsi -->
             <div class="mb-5">
                 <label for="deskripsi" class="block mb-2 text-sm font-medium text-white">Decription</label>
-                <input type="text" id="deskripsi" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-green-500 focus:border-green-500 dark:bg-slate-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-green-500 dark:focus:border-green-500" required>
+                <textarea name="description" id="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write a product description here..." required></textarea>
             </div>
             <!-- Harga dan Stok -->
             <div class="grid md:grid-cols-2 md:gap-6">
@@ -65,4 +54,51 @@
         </form>
     </div>
 </body>
+<script>
+    const submit = document.getElementById('submit');
+
+    // Input Check
+    function checkInputs() {
+        const inputs = document.querySelectorAll('#form input, #form textarea');
+        let isInputFilled = false;
+
+        inputs.forEach(input => {
+            if (input.value.trim() !== '') {
+                isInputFilled = true;
+            }
+        });
+    }
+    document.getElementById('form').addEventListener('input', checkInputs);
+
+    // Post Fetch
+    document.getElementById('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        fetch('https://1e44-180-244-132-9.ngrok-free.app/fruits', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Data successfully sent:', data);
+            // Hapus input setelah pengiriman berhasil
+            const inputs = document.querySelectorAll('#form input');
+            inputs.forEach(input => {
+                input.value = '';
+            });
+            // Menonaktifkan tombol-tombol setelah menghapus input
+            checkInputs();
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+    });
+    checkInputs();
+</script>
 </html>
