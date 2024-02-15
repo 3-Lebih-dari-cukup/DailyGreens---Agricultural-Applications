@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyGreens - Website Pertanian</title>
+    <link rel="stylesheet" href="src/output.css">
+    <script src='https://cdn.tailwindcss.com'></script>
+</head>
+<body class="bg-white">
+    <section class="wrapper">
+        <div class="mx-20 max-w-2xl px-4 py-8 mx-auto lg:py-12 rounded bg-gray-900 ">
+            <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Edit Veggies</h2>
+            <form id="AddForm" enctype="multipart/form-data" method="post">
+                <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+                    <div class="sm:col-span-2">
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Veggies Name</label>
+                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="" placeholder="Type product name" required="">
+                    </div>
+                    <div class="w-full">
+                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                        <input type="text" name="address" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="" placeholder="Seller Address" required="">
+                    </div>
+                    <div class="w-full">
+                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price (Rupiah)</label>
+                        <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="" placeholder="Rp. 000" required="">
+                    </div>
+                    <div>
+                        <label for="seller" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seller</label>
+                        <input type="text" name="seller" id="seller" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="" placeholder="Seller Store Name" required="">
+                    </div>
+                    <div>
+                        <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
+                        <input type="number" name="stock" id="stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-primary-500" value="" placeholder="Ex. 12" required="">
+                    </div> 
+                    <div class="sm:col-span-2">
+                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                        <textarea name="description" id="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write a product description here..."></textarea>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image">Upload Photo</label>
+                        <img id="imageInput" class="w-14"/> 
+                        <input class="pl-3 py-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="image" id="image" type="file" name="image">
+                    </div>                    
+                </div>                
+                <div class="flex items-center space-x-4 mt-8 justify-end ">
+                    <button id="backButton" type="button" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-blue-800">
+                        ⬅️Back
+                    </button>
+                    <button id="saveButton" type="submit" class=" disabled:bg-gray-400 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled-button"> <!-- Added class disabled-button -->
+                        Save Veggies
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mendapatkan URL saat ini
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Mengambil nilai dari query parameter 'id'
+        const id = urlParams.get('id');
+        console.log(id);
+
+
+
+    // Jika ID ditemukan dalam URL, lakukan fetch data dari server
+    if (id) {
+        fetch(`https://1e44-180-244-132-9.ngrok-free.app/vegetables/${id}`, {
+            method: 'GET',
+            headers: {
+                "ngrok-skip-browser-warning": "true",
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            if (response && response.data) {
+                const { id, name, description, price, stock, address, seller, image } = response.data;
+                document.getElementById('name').value = name;
+                document.getElementById('address').value = address;
+                document.getElementById('price').value = price;
+                document.getElementById('seller').value = seller;
+                document.getElementById('stock').value = stock;
+                document.getElementById('description').value = description;
+                document.getElementById('imageInput').setAttribute("src", `https://1e44-180-244-132-9.ngrok-free.app${image}`);
+                document.getElementById('image').value = "tomato.jpg";
+                console.log(image);
+                
+            } else {
+                console.error('Invalid response format');
+            }
+        });
+    }
+    // Fungsi untuk mengirim data update ke API
+    document.getElementById('AddForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        console.log(formData);
+        if (id) {
+            fetch(`https://1e44-180-244-132-9.ngrok-free.app/vegetables/${id}`, { // Perbaikan di sini
+                method: 'PUT',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data successfully sent:', data);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+        }
+    });
+
+
+    // Back Button
+    document.getElementById("backButton").addEventListener("click", function() {
+        window.location.href = "VeggiesList.html";
+    });
+
+});
+</script>
+
+
+</html>
