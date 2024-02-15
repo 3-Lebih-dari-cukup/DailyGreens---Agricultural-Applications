@@ -1,4 +1,38 @@
 const url = "https://1e44-180-244-132-9.ngrok-free.app/vegetables"
+
+let product = document.querySelector('.product-list'); 
+    
+            async function deleteProduct(id){
+                try {
+                    let confirmation = window.confirm('Are you sure you want to delete this product?');
+
+                    if (confirmation){
+                        let response = await fetch(`https://1e44-180-244-132-9.ngrok-free.app/vegetables/${id}`, {
+                            method: 'DELETE'
+                        });
+
+                        if (response.ok) {
+                            console.log('Produk telah dihapus');
+                            document.querySelector('[data-productid="${id}"]').closest('.product').remove();
+                        } else {
+                            console.log('Gagal menghapus produk');
+                        }
+                    }
+                } catch (error) {
+                    console.log('error', error);
+                }
+            }           
+
+            // Delete Button
+            product.addEventListener('click', async function(event) {
+            if (event.target.classList.contains('delete-product')) {
+                let productId = event.target.dataset.productid;
+                await deleteProduct(productId);
+                event.target.closest('.product').remove();
+            }
+            });
+
+            // Get fetch
             async function fetchProductList() {
                 try {
                     const api = await fetch(url, {
@@ -38,7 +72,7 @@ const url = "https://1e44-180-244-132-9.ngrok-free.app/vegetables"
                             </div>
                         </div>
                         <div class="flex mt-8 mb-4 space-x-1.5 self-center">
-                            <a href="#!" data-productID="${id}" class="rounded-xl px-9 bg-blue-500 hover:bg-white text-white hover:text-blue-500 font-bold py-2 px-4 rounded border border-blue-500">Edit</a>
+                            <a href="#!" id="editButton" data-productID="${id}" id="${id}" class="editButton rounded-xl px-9 bg-blue-500 hover:bg-white text-white hover:text-blue-500 font-bold py-2 px-4 rounded border border-blue-500">Edit</a>
                             <a href="#!" data-productid="${id}" class="delete-product rounded-xl px-7 hover:bg-red-700 text-red-700 hover:text-white font-bold py-2 px-4 rounded border border-red-500 hover:border-red-700">Delete</a>
                         </div>
                         </div>
@@ -53,8 +87,24 @@ const url = "https://1e44-180-244-132-9.ngrok-free.app/vegetables"
 
 fetchProductList();
 
-            // Event listener for + ADD button
+            // ADD Button
             document.getElementById("addButton").addEventListener("click", function() {
-                // Redirect to another HTML page
                 window.location.href = "addVeggies.html";
             });
+
+            // Edit Button
+            product.addEventListener('click', async function(event) {
+                if (event.target.classList.contains('editButton')) {
+                    const productId = event.target.dataset.productid;
+                    window.location.href = `updateVeggies.html?id=${productId}`;
+                }
+            });
+
+
+
+                    
+
+                        
+
+            
+
