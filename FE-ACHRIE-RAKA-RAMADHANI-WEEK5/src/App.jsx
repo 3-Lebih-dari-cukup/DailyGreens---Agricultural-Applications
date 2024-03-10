@@ -1,16 +1,18 @@
-import './App.css'
-// import FruitTable from './components/FruitTable';
-import Update from './components/Update';
+    import './App.css'
+    // import FruitTable from './components/FruitTable';
+    import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+    import Update from './components/Update';
 
-function App() {
-    return (
-        <div>
-            <h1>DailyGreens - Website Pertanian</h1>
-            {/* <FruitTable/> */}
-            <Update />
-        </div>
-    );
-}
+    function App() {
+        return (
+        <Router>
+            <Switch>
+                <Route path='/update'
+                        element={<Update />} />
+            </Switch>
+        </Router>
+        );
+    }
 
 
-export default App
+    export default App

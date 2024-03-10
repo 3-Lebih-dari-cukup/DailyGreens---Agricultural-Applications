@@ -1,1 +1,0 @@
-# DailyGreens---Agricultural-Applications
